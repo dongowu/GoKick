@@ -8,6 +8,14 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/google/uuid v1.6.0
 	github.com/redis/go-redis/v9 v9.7.3
+	github.com/prometheus/client_golang v1.22.0
+	go.opentelemetry.io/otel v1.20.0
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.20.0
+	go.opentelemetry.io/otel/propagation v1.20.0
+	go.opentelemetry.io/otel/sdk/resource v1.20.0
+	go.opentelemetry.io/otel/sdk/trace v1.20.0
+	go.opentelemetry.io/otel/semconv v0.20.0
+	go.opentelemetry.io/otel/trace v1.20.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/time v0.11.0
 	gopkg.in/yaml.v3 v3.0.1

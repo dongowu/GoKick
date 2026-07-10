@@ -53,3 +53,13 @@ log:
   max_backups: 30
   max_age: 90
   compress: true
+
+observability:
+  enabled: true
+  service_name: gokick
+  tracing_endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:-jaeger:4317}
+  metrics_path: /metrics
+
+health:
+  enabled: true
+  path: /health

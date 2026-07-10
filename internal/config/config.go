@@ -3,14 +3,16 @@ package config
 import "time"
 
 type Config struct {
-	Server   ServerConfig
-	MySQL    MySQLConfig
-	Redis    RedisConfig
-	MQ       MQConfig
-	JWT      JWTConfig
-	Log      LogConfig
-	SMTP     SMTPConfig
-	Env      string `json:"env"`
+	Server        ServerConfig
+	MySQL         MySQLConfig
+	Redis         RedisConfig
+	MQ            MQConfig
+	JWT           JWTConfig
+	Log           LogConfig
+	SMTP          SMTPConfig
+	Observability ObservabilityConfig
+	Health        HealthConfig
+	Env           string `json:"env"`
 }
 
 type ServerConfig struct {
@@ -90,4 +92,16 @@ type SMTPConfig struct {
 	Password string `json:"password"`
 	From     string `json:"from"`
 	TLS      bool   `json:"tls"`
+}
+
+type ObservabilityConfig struct {
+	Enabled         bool   `json:"enabled"`
+	ServiceName     string `json:"service_name"`
+	TracingEndpoint string `json:"tracing_endpoint"`
+	MetricsPath     string `json:"metrics_path"`
+}
+
+type HealthConfig struct {
+	Enabled bool   `json:"enabled"`
+	Path    string `json:"path"`
 }

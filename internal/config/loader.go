@@ -245,6 +245,28 @@ func mergeConfig(base, override *Config) {
 	if override.SMTP.From != "" {
 		base.SMTP.From = override.SMTP.From
 	}
+
+	// Observability
+	if override.Observability.Enabled {
+		base.Observability.Enabled = true
+	}
+	if override.Observability.ServiceName != "" {
+		base.Observability.ServiceName = override.Observability.ServiceName
+	}
+	if override.Observability.TracingEndpoint != "" {
+		base.Observability.TracingEndpoint = override.Observability.TracingEndpoint
+	}
+	if override.Observability.MetricsPath != "" {
+		base.Observability.MetricsPath = override.Observability.MetricsPath
+	}
+
+	// Health
+	if override.Health.Enabled {
+		base.Health.Enabled = true
+	}
+	if override.Health.Path != "" {
+		base.Health.Path = override.Health.Path
+	}
 }
 
 // applyEnvVars 应用环境变量覆盖
@@ -311,5 +333,27 @@ func applyEnvVars(cfg *Config) {
 	}
 	if v := os.Getenv("GONIO_LOG_LEVEL"); v != "" {
 		cfg.Log.Level = v
+	}
+
+	// Observability
+	if v := os.Getenv("GONIO_OBSERVABILITY_ENABLED"); v != "" {
+		cfg.Observability.Enabled = strings.ToLower(v) == "true"
+	}
+	if v := os.Getenv("GONIO_OBSERVABILITY_SERVICE_NAME"); v != "" {
+		cfg.Observability.ServiceName = v
+	}
+	if v := os.Getenv("GONIO_OBSERVABILITY_TRACING_ENDPOINT"); v != "" {
+		cfg.Observability.TracingEndpoint = v
+	}
+	if v := os.Getenv("GONIO_OBSERVABILITY_METRICS_PATH"); v != "" {
+		cfg.Observability.MetricsPath = v
+	}
+
+	// Health
+	if v := os.Getenv("GONIO_HEALTH_ENABLED"); v != "" {
+		cfg.Health.Enabled = strings.ToLower(v) == "true"
+	}
+	if v := os.Getenv("GONIO_HEALTH_PATH"); v != "" {
+		cfg.Health.Path = v
 	}
 }
