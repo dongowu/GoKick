@@ -1,0 +1,48 @@
+-- 初始化数据库脚本
+-- 创建示例表结构
+
+CREATE DATABASE IF NOT EXISTS gokick DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE gokick;
+
+-- 用户表
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
+    email VARCHAR(100) NOT NULL UNIQUE COMMENT '邮箱',
+    password_hash VARCHAR(255) NOT NULL COMMENT '密码哈希',
+    nickname VARCHAR(50) COMMENT '昵称',
+    avatar VARCHAR(255) COMMENT '头像URL',
+    status TINYINT NOT NULL DEFAULT 1 COMMENT '状态: 0-禁用 1-启用 2-锁定',
+    last_login_at DATETIME COMMENT '最后登录时间',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL,
+    INDEX idx_email (email),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
+
+-- 角色表（如果需要 RBAC）
+CREATE TABLE IF NOT EXISTS roles (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE COMMENT '角色名',
+    description VARCHAR(255) COMMENT '描述',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色表';
+
+-- 用户角色关联表
+CREATE TABLE IF NOT EXISTS user_roles (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    role_id BIGINT UNSIGNED NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_user_role (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户角色关联表';
+
+-- 插入默认角色
+INSERT IGNORE INTO roles (id, name, description) VALUES 
+(1, 'admin', '管理员'),
+(2, 'user', '普通用户');
