@@ -1,6 +1,6 @@
 module github.com/dongowu/gokick
 
-go 1.26
+go 1.22
 
 require (
 	github.com/gin-gonic/gin v1.10.1
@@ -8,12 +8,11 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/google/uuid v1.6.0
 	github.com/redis/go-redis/v9 v9.7.3
+	go.uber.org/zap v1.27.0
 	golang.org/x/time v0.11.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
-	go.uber.org/zap v1.27.0
-	github.com/3c4u/identity v0.3.3
 )
 
 require (
