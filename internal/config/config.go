@@ -10,8 +10,6 @@ type Config struct {
 	JWT           JWTConfig
 	Log           LogConfig
 	SMTP          SMTPConfig
-	Observability ObservabilityConfig
-	Health        HealthConfig
 	Env           string `json:"env"`
 }
 
@@ -94,14 +92,4 @@ type SMTPConfig struct {
 	TLS      bool   `json:"tls"`
 }
 
-type ObservabilityConfig struct {
-	Enabled         bool   `json:"enabled"`
-	ServiceName     string `json:"service_name"`
-	TracingEndpoint string `json:"tracing_endpoint"`
-	MetricsPath     string `json:"metrics_path"`
-}
 
-type HealthConfig struct {
-	Enabled bool   `json:"enabled"`
-	Path    string `json:"path"`
-}

@@ -54,12 +54,10 @@ log:
   max_age: 90
   compress: true
 
-observability:
-  enabled: true
-  service_name: gokick
-  tracing_endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:-jaeger:4317}
-  metrics_path: /metrics
-
-health:
-  enabled: true
-  path: /health
+smtp:
+  host: smtp.example.com
+  port: 465
+  username: no-reply@example.com
+  password: ""
+  from: no-reply@example.com
+  tls: true

@@ -84,15 +84,3 @@ smtp:
   password: ""
   from: no-reply@example.com
   tls: true
-
-# Observability configuration (OpenTelemetry + Prometheus)
-observability:
-  enabled: false
-  service_name: gokick
-  tracing_endpoint: localhost:4317
-  metrics_path: /metrics
-
-# Health check configuration
-health:
-  enabled: true
-  path: /health
