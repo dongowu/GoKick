@@ -1,0 +1,55 @@
+server:
+  port: 8080
+  mode: debug # 开发模式开启 debug
+  read_timeout: 10s
+  write_timeout: 10s
+  auto_migrate: true # 开发环境自动迁移
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: "123456"
+  database: gokick_dev
+  max_idle_conns: 10
+  max_open_conns: 100
+  max_lifetime: 3600s
+  conn_max_idle_time: 600s
+  dial_timeout: 5s
+  read_timeout: 10s
+  write_timeout: 10s
+  ping_timeout: 3s
+  prepare_stmt: true
+  skip_default_transaction: true
+
+redis:
+  addr: 127.0.0.1:6379
+  password: ""
+  db: 0
+  pool_size: 50
+  min_idle_conns: 5
+  max_idle_conns: 25
+  pool_timeout: 5s
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+  conn_max_idle_time: 300s
+  conn_max_lifetime: 3600s
+  ping_timeout: 3s
+  max_retries: 3
+  min_retry_backoff: 8ms
+  max_retry_backoff: 512ms
+
+jwt:
+  secret: "gokick-dev-secret-key"
+  expire: 86400 # 1 天（开发环境较短）
+
+log:
+  mode: dev
+  level: debug
+  sql_level: info
+  file_path: logs/dev.log
+  max_size: 100
+  max_backups: 7
+  max_age: 30
+  compress: false # 开发环境不压缩

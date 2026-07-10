@@ -1,0 +1,86 @@
+# GoKick Scaffold Configuration
+
+# Server configuration
+server:
+  port: 8080
+  mode: release # debug | release
+  read_timeout: 10s
+  write_timeout: 10s
+  auto_migrate: true
+
+# MySQL configuration
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: ""
+  database: gokick
+  max_idle_conns: 10
+  max_open_conns: 100
+  max_lifetime: 3600s
+  conn_max_idle_time: 600s
+  dial_timeout: 5s
+  read_timeout: 10s
+  write_timeout: 10s
+  ping_timeout: 3s
+  prepare_stmt: true
+  skip_default_transaction: true
+
+# Redis configuration
+redis:
+  addr: 127.0.0.1:6379
+  password: ""
+  db: 0
+  pool_size: 100
+  min_idle_conns: 10
+  max_idle_conns: 50
+  pool_timeout: 5s
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+  conn_max_idle_time: 300s
+  conn_max_lifetime: 3600s
+  ping_timeout: 3s
+  max_retries: 3
+  min_retry_backoff: 8ms
+  max_retry_backoff: 512ms
+
+# Message Queue configuration
+mq:
+  driver: redis # redis | mysql
+  consumer_group: gokick-group
+  topic_concurrency:
+    email: 3
+    sms: 1
+    stats: 2
+  default_max_len: 20
+  topic_max_len:
+    email: 10
+    sms: 2000
+    stats: 10000
+  trim_interval: 3600s
+
+# JWT configuration
+jwt:
+  secret: "gokick-secret-key-change-me"
+  expire: 604800 # seconds (7 days)
+
+# Log configuration
+log:
+  mode: dev # dev | prod
+  level: info
+  sql_level: warn
+  file_path: logs/app.log
+  max_size: 100 # MB
+  max_backups: 7
+  max_age: 30 # days
+  compress: true
+
+# SMTP configuration
+smtp:
+  host: smtp.example.com
+  port: 465
+  username: no-reply@example.com
+  password: ""
+  from: no-reply@example.com
+  tls: true

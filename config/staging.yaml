@@ -1,0 +1,55 @@
+server:
+  port: 8080
+  mode: release
+  read_timeout: 10s
+  write_timeout: 10s
+  auto_migrate: false # staging 不自动迁移
+
+mysql:
+  host: ${MYSQL_HOST}
+  port: 3306
+  username: ${MYSQL_USERNAME}
+  password: ${MYSQL_PASSWORD}
+  database: ${MYSQL_DATABASE}
+  max_idle_conns: 20
+  max_open_conns: 200
+  max_lifetime: 3600s
+  conn_max_idle_time: 600s
+  dial_timeout: 5s
+  read_timeout: 10s
+  write_timeout: 10s
+  ping_timeout: 3s
+  prepare_stmt: true
+  skip_default_transaction: true
+
+redis:
+  addr: ${REDIS_ADDR}
+  password: ${REDIS_PASSWORD}
+  db: 0
+  pool_size: 200
+  min_idle_conns: 20
+  max_idle_conns: 100
+  pool_timeout: 5s
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+  conn_max_idle_time: 300s
+  conn_max_lifetime: 3600s
+  ping_timeout: 3s
+  max_retries: 3
+  min_retry_backoff: 8ms
+  max_retry_backoff: 512ms
+
+jwt:
+  secret: ${JWT_SECRET}
+  expire: 604800 # 7 天
+
+log:
+  mode: prod
+  level: info
+  sql_level: warn
+  file_path: logs/app.log
+  max_size: 100
+  max_backups: 7
+  max_age: 30
+  compress: true
