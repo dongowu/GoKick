@@ -1,15 +1,10 @@
-package cli
+package gen
 
 import (
-	"fmt"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
-
-	"github.com/gin-gonic/gin"
-	"github.com/dongowu/gokick/internal/pkg/apperror"
 )
 
 const (
@@ -40,7 +35,7 @@ func New{{.Entity}}Handler(svc *service.{{.Entity}}Service) *{{.Entity}}Handler 
 // @Param request body service.Create{{.Entity}}Request true "请求参数"
 // @Success 200 {object} response.Response
 // @Failure 400 {object} apperror.AppError
-// @Router /{{.Module}}/{{.entity}} [post]
+// @Router /{{.Module}}/{{.EntityLower}} [post]
 func (h *{{.Entity}}Handler) Create{{.Entity}}(c *gin.Context) {
 	var req service.Create{{.Entity}}Request
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -115,7 +110,7 @@ type {{.Entity}}Model struct {
 }
 
 func ({{.Entity}}Model) TableName() string {
-	return "{{.entity}}s"
+	return "{{.EntityLower}}s"
 }
 
 func (r *{{.Entity}}Repository) Create(ctx context.Context, model *{{.Entity}}Model) error {
@@ -158,7 +153,7 @@ type {{.Entity}} struct {
 }
 
 func ({{.Entity}}) TableName() string {
-	return "{{.entity}}s"
+	return "{{.EntityLower}}s"
 }
 `
 )
@@ -169,19 +164,19 @@ type TemplateData struct {
 	EntityLower string
 }
 
-func generateHandler(data TemplateData) (string, error) {
+func GenerateHandler(data TemplateData) (string, error) {
 	return executeTemplate(handlerTmpl, data)
 }
 
-func generateService(data TemplateData) (string, error) {
+func GenerateService(data TemplateData) (string, error) {
 	return executeTemplate(serviceTmpl, data)
 }
 
-func generateRepository(data TemplateData) (string, error) {
+func GenerateRepository(data TemplateData) (string, error) {
 	return executeTemplate(repositoryTmpl, data)
 }
 
-func generateModel(data TemplateData) (string, error) {
+func GenerateModel(data TemplateData) (string, error) {
 	return executeTemplate(modelTmpl, data)
 }
 
@@ -197,7 +192,7 @@ func executeTemplate(tmpl string, data TemplateData) (string, error) {
 	return buf.String(), nil
 }
 
-func writeFile(path, content string) error {
+func WriteFile(path, content string) error {
 	dir := filepath.Dir(path)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
