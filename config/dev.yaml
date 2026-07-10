@@ -42,7 +42,7 @@ redis:
 
 jwt:
   secret: "gokick-dev-secret-key"
-  expire: 86400 # 1 天（开发环境较短）
+  expire: "86400s" # 1 天（开发环境较短）
 
 log:
   mode: dev

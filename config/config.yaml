@@ -63,7 +63,7 @@ mq:
 # JWT configuration
 jwt:
   secret: "gokick-secret-key-change-me"
-  expire: 604800 # seconds (7 days)
+  expire: "604800s" # seconds (7 days)
 
 # Log configuration
 log:
